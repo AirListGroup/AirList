@@ -9,7 +9,7 @@ var mongoUri = process.env.MONGODB_URI || 'mongodb://local/airlistdb';
 mongoose.connect(mongoUri);
 
 //serve static files
-app.use(express.static(__dirname + '/Client'));
+app.use(express.static(__dirname + '../Client'));
 
 app.listen(port, function(){
   console.log("server up and running on port:" + port);
