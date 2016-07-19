@@ -29,7 +29,6 @@ var getAllItems = function(req, res) {
 };
 
 var deleteItem = function(req, res) {
-  console.log(req.params.id);
   var id = req.params.id;
   removeItem({_id: id})
   .then(function(item){
@@ -43,20 +42,26 @@ var deleteItem = function(req, res) {
 var updateAnItem = function(req, res) {
   var id = req.params.id;
   var newParams = req.body;
+  console.log("unicornsBODY", req.body);
+  console.log("trollsPARAMS", req.params);
 
   Item.findOne({_id: id}, function(err, doc) {
     if (newParams.days) {
-        doc.days = newParams.days
+        doc.days = newParams.days;
     }
     if (newParams.price) {
-        doc.price = newParams.price
+        doc.price = newParams.price;
     }
     if (newParams.description) {
-        doc.description = newParams.description
+        doc.description = newParams.description;
     }
     if (newParams.name) {
-        doc.name = newParams.name
+        doc.name = newParams.name;
     }
+    if (newParams.hasOwnProperty('rentable')) {
+        doc.rentable = newParams.rentable;
+    }
+    console.log("This is the doc!", doc)
     doc.save();
     res.status(200);
     res.send(doc);
@@ -65,3 +70,4 @@ var updateAnItem = function(req, res) {
 module.exports.createItem = createItem;
 module.exports.getAllItems = getAllItems;
 module.exports.deleteItem = deleteItem;
+module.exports.updateAnItem = updateAnItem;
