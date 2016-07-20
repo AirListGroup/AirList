@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var User = require('../user/userModel.js');
 
 var ItemSchema = new mongoose.Schema({
   name: String,
@@ -6,7 +7,9 @@ var ItemSchema = new mongoose.Schema({
   days: Number,
   price: Number,
   rentable: Boolean,
-  category: String
+  category: String,
+  rentedyBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  lentby: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });
 
 module.exports = mongoose.model('Item', ItemSchema);

@@ -1,16 +1,14 @@
 var mongoose = require('mongoose');
+var Item = require('../item/itemModel.js');
 
 var UserSchema = new mongoose.Schema({
-  username:  {
+  email: {
     type: String,
     required: true,
     unique: true
   },
-  email: String,
-  password:{
-    type: String,
-    required: true
-  }
+  rentedItems: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Item' }],
+  lentItems: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Item' }]
 });
 
 module.exports = mongoose.model('User', UserSchema);
