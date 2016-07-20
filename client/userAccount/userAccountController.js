@@ -1,1 +1,1 @@
-angular.module('userAccCtrl', ['app'])
+userAccountController.js
