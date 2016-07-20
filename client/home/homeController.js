@@ -1,3 +1,5 @@
+homecontroller.js
+
 angular.module('app', [])
   .controller('thecontroller', function($scope, $http){
     $scope.options = [
@@ -48,12 +50,23 @@ angular.module('app', [])
       }
     };
 
+    $scope.yourListings = function() {
+       $http({
+        method:'GET',
+        url: '/listings'
+      }).success(function(res) {
+        $scope.yourItems = res;
+      });
+      refresh();
+    }
+
     $scope.addItem = function(post){
       $http({
         method:'POST',
         url: '/listings',
         data: post
       });
+      console.log('hi')
       refresh();
     };
 
