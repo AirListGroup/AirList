@@ -1,7 +1,7 @@
 <nav class="navbar navbar-inverse nav-fixed-top">
      <div class="container">
        <a class="navbar-brand"> AirList </a>
-       <div class="navbar-form navbar-left">
+       <div class="navbar-form">
          <select ng-model="selectedOption" ng-init="selectedOption = options[0].category" class="form-control">
            <option ng-repeat="x in options" value="{{x.category}}">
              {{x.category}}
@@ -9,12 +9,15 @@
          </select>
 
          <input type="text" ng-model="searchBox" placeholder="Search items to rent" class="form-control">
-         <button type="button" class="btn btn-primary" ng-click="search(selectedOption)">Search</button>
+         <button type="button" class="btn btn-primary" ng-click="showme=true; search(selectedOption)">Search</button>
+         <button type="button" class="btn btn-primary pull-right" ng-click="logout()">Log Out</button>
+         <button type="button" class="btn btn-primary pull-right" ng-click="showme=false">View Your Listings</button>
+
        </div>
      </div>
    </nav>
 
-     <h3> Your Listing </h3>
+     <h3> List an Item </h3>
      <select ng-model="list.category" class="form-control listingClass" ng-init="list.category = addCategory[0].category" >
        <option ng-repeat="y in addCategory" value="{{y.category}}">
          {{y.category}}
@@ -30,20 +33,44 @@
      </div>
    </div>
 
-  <div class="container" ng-init="yourListings()">
-     <div class="row">
+   <hr>
+
+     <div class="container" ng-init="yourListings()" ng-hide="showme">
+     <div class="row" ng-hide="showme">
        <h3> View Your Current Listings </h3>
        <div class="searchResults" ng-repeat="list in yourItems | filter: email | orderBy: 'category'">
-         {{list.name}}
+         <strong> Item Name: </strong>  {{list.name}}
          <br>
-         {{list.description}}
+         <strong> Item Description: </strong>  {{list.description}}
          <br>
-         {{list.price}}
+         <strong> Price Per Day: </strong> {{list.price}}
          <br>
-         {{list.days}} days
-         <button ng-click="remove(list)">Delete</button>
+         <strong> Number of Days to be listed: </strong> {{list.days}} days
+         <button class = "btn-danger" ng-click="remove(list)">Delete</button>
          <br>
-         {{ list.rentable  ?  "available now"  : "not available" }}
+         {{ list.rentable  ?  "Available Now"  : "Not Available" }}
+         <hr>
+       </div>
+     </div>
+   </div>
+
+    <hr>
+
+   <div class="container" g-show="showme">
+     <div class="row" ng-show="showme">
+       <h2> Search Results: </h2>
+       <div class="searchResults" ng-init="refresh()" ng-repeat="list in query | filter:searchBox | orderBy: 'category'">
+         <strong> Item Name: </strong> {{list.name}}
+         <br>
+         <strong> Item Description: </strong> {{list.description}}
+         <br>
+         <strong> Price Per Day: </strong> {{list.price}}
+         <br>
+         <strong> Number of Days to be listed: </strong> {{list.days}} days
+         <br>
+         <strong> {{ list.rentable  ?  "Available Now"  : "Not Available" }} </strong>
+         <button ng-click="rent(list)">Rent</button>
+         <hr>
        </div>
      </div>
    </div>

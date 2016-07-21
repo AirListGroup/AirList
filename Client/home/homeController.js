@@ -9,7 +9,7 @@ angular.module('app', ['auth0', 'angular-storage', 'angular-jwt', 'ngRoute', 'ap
 
     $routeProvider
     .when( '/', {
-      controller: 'mainController',
+      controller: 'LoginCtrl',
       templateUrl: 'home/home.html',
       requiresLogin: false
     })
@@ -76,7 +76,7 @@ angular.module('app', ['auth0', 'angular-storage', 'angular-jwt', 'ngRoute', 'ap
     }
   }])
 
- .controller('mainController', function($scope, $http){
+ .controller('mainController', function($scope, $http, $window){
    $scope.options = [
      {category: "All Departments"},
      {category: "Books"},
@@ -107,8 +107,32 @@ angular.module('app', ['auth0', 'angular-storage', 'angular-jwt', 'ngRoute', 'ap
      });
    };
 
+   var refreshUserListings = function() {
+      $http({
+       method:'GET',
+       url: '/listings'
+     }).success(function(res) {
+       $scope.yourItems = res;
+     });
+   }
+
+   $scope.logout = function() {
+    $window.location.href =
+    'https://dilp.auth0.com/v2/logout'
+    //?returnTo=http://www.example.com
+   }
+
+   $scope.generalListings = function() {
+      $http({
+       method:'GET',
+       url: '/listings'
+     }).success(function(res) {
+       $scope.lists = res;
+     });
+   }
+
    $scope.search = function(category){
-     if(category === 'All Departments') {
+     if(category === "All Departments") {
         $http({
          method:'GET',
          url: '/listings'
@@ -146,6 +170,7 @@ angular.module('app', ['auth0', 'angular-storage', 'angular-jwt', 'ngRoute', 'ap
      });
      console.log(post)
      refresh();
+     refreshUserListings();
    };
 
    $scope.rent = function(item){
@@ -160,6 +185,7 @@ angular.module('app', ['auth0', 'angular-storage', 'angular-jwt', 'ngRoute', 'ap
    $scope.remove = function(item) {
      $http.delete('/listings/' + item._id).success(function(res) {
        refresh();
+       refreshUserListings();
      });
    };
 
