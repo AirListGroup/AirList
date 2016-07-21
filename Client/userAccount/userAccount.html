@@ -30,11 +30,10 @@
      </div>
    </div>
 
-
   <div class="container" ng-init="yourListings()">
      <div class="row">
        <h3> View Your Current Listings </h3>
-       <div class="searchResults" ng-repeat="list in yourItems | filter:userId | orderBy: 'category'">
+       <div class="searchResults" ng-repeat="list in yourItems | filter: email | orderBy: 'category'">
          {{list.name}}
          <br>
          {{list.description}}

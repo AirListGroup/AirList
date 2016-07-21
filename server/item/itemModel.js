@@ -8,6 +8,7 @@ var ItemSchema = new mongoose.Schema({
   price: Number,
   rentable: Boolean,
   category: String,
+  email: String,
   rentedyBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   lentby: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });

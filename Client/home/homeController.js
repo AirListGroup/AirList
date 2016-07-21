@@ -31,6 +31,8 @@ angular.module('app', ['auth0', 'angular-storage', 'angular-jwt', 'ngRoute', 'ap
         // profile
             store.set('profile', profile);
             store.set('token', idToken);
+            email = profile.email;
+
       });
       $location.url('/userAccount');
     }]);
@@ -130,16 +132,19 @@ angular.module('app', ['auth0', 'angular-storage', 'angular-jwt', 'ngRoute', 'ap
      }).success(function(res) {
        $scope.yourItems = res;
      });
+    $scope.email = JSON.parse(window.localStorage.profile).email;
+    console.log($scope.email);
      refresh();
    }
 
    $scope.addItem = function(post){
+    post.email = email;
      $http({
        method:'POST',
        url: '/listings',
        data: post
      });
-     console.log('hi')
+     console.log(post)
      refresh();
    };
 
