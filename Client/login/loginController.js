@@ -1,1 +1,1 @@
-loginController.js
+angular.module('app.loginController', ['app'])
