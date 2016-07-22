@@ -212,7 +212,7 @@ angular.module('app', ['auth0', 'angular-storage', 'angular-jwt', 'ngRoute', 'ap
      });
    };
 
-   $scope.return = function(item){
+   $scope.returnItem = function(item){
      item.rentable = true;
      delete item.renter;
      var newItem = item;
