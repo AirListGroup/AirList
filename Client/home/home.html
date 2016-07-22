@@ -1,64 +1,89 @@
 <nav class="navbar navbar-inverse nav-fixed-top">
-     <div class="container ">
-       <a class="navbar-brand" href='#/'> AirList </a>
-       <div class="navbar-form ">
-         <select ng-model="selectedOption" ng-init="selectedOption = options[0].category" class="form-control">
-           <option ng-repeat="x in options" value="{{x.category}}">
-             {{x.category}}
-           </option>
-         </select>
+   <div class="container ">
+     <a class="navbar-brand" href='#/'> AirList </a>
+     <div class="navbar-form ">
+       <select ng-model="selectedOption" ng-init="selectedOption = options[0].category" class="form-control">
+         <option ng-repeat="x in options" value="{{x.category}}">
+           {{x.category}}
+         </option>
+       </select>
 
-         <input type="text" ng-model="searchBox" placeholder="Search items to rent" class="form-control">
-         <button type="button" class="btn btn-primary" ng-click="showme=true; search(selectedOption)">Search</button>
-         <button type="button" class="btn btn-primary pull-right" ng-click="logout()">Log Out</button>
-         <button type="button" class="btn btn-primary pull-right" ng-click="goToUserAcc()">Your Account</button>
-         <button type="button" class="btn btn-primary pull-right" ng-click="showme=false">All Listings</button>
-       </div>
+       <input type="text" ng-model="searchBox" placeholder="Search items to rent" class="form-control">
+       <button type="button" class="btn btn-primary" ng-click="showme=true; search(selectedOption)">Search</button>
+       <button type="button" class="btn btn-primary pull-right" ng-click="logout()">Log Out</button>
+       <button type="button" class="btn btn-primary pull-right" ng-click="goToUserAcc()">Your Account</button>
+       <button type="button" class="btn btn-primary pull-right" ng-click="showme=false">All Listings</button>
      </div>
-   </nav>
-
-</div>
+   </div>
+</nav>
 
 <!-- search results -->
-   <div class="container" ng-show="showme" ng-init="login()">
-     <div class="row" ng-show="showme">
-       <h2> Search Results: </h2>
-       <div ng-init="refresh()" ng-repeat="list in query | filter:searchBox | orderBy: 'category'">
+<div class="container" ng-show="showme" ng-init="login()">
+ <div class="row" ng-show="showme">
+   <h2> Search Results: </h2>
+
+     <div ng-init="refresh()" ng-repeat="list in query | filter:searchBox | orderBy: 'category'">
+
+      <div class="col-sm-12">
+
+      <div class="col-xs-6 col-md-2">
+        <a class="thumbnail">
+          <img src="../images/box.png">
+        </a>
+      </div>
+
+      <div>
          <strong> Item Name: </strong> {{list.name}}
          <br>
          <strong> Category: </strong> {{list.category}}
          <br>
          <strong> Item Description: </strong> {{list.description}}
          <br>
-         <strong> Price Per Day: </strong> {{list.price}}
-         <br>
-         <strong> Number of Days to be listed: </strong> {{list.days}} days
-         <br>
-         <strong> {{ list.rentable  ?  "Available Now"  : "Not Available" }} </strong>
-         <button ng-click="rent(list)">Rent</button>
-         <hr>
-       </div>
-     </div>
-   </div>
-
-     <!-- display after adding/deleting items -->
-   <div class="container" ng-init="generalListings()" ng-hide="showme">
-     <div class="row" ng-hide="showme">
-       <h2 > All Listings: </h2>
-       <div ng-repeat="list in lists">
-          <strong> Item Name: </strong> {{list.name}}
-         <br>
-         <strong> Category: </strong> {{list.category}}
-         <br>
-          <strong> Item Description: </strong> {{list.description}}
-         <br>
          <strong> Price Per Day: </strong> ${{list.price}}
          <br>
-         <strong> Number of Days to be listed: </strong> {{list.days}} days
+         <strong> Rental Period: </strong> {{list.days}} days
          <br>
-         <strong> {{ list.rentable  ?  "Available Now"  : "Not Available" }}  </strong>
-         <button ng-click="rent(list)">Rent</button>
-         <hr>
+         <strong> {{ list.rentable  ?  "Available Now"  : "Not Available" }} </strong>
+         <button class="btn-success" ng-click="rent(list)">Rent</button>
        </div>
-     </div>
+
+       </div>
+
    </div>
+ </div>
+</div>
+
+ <!-- display after adding/deleting items -->
+<div class="container" ng-init="generalListings()" ng-hide="showme">
+ <div class="row" ng-hide="showme">
+   <h2 > All Listings: </h2>
+   <div ng-repeat="list in lists">
+
+   <div class="col-sm-12">
+
+      <div class="col-xs-6 col-md-2">
+        <a class="thumbnail">
+          <img src="../images/box.png">
+        </a>
+      </div>
+
+     <div>
+       <strong> Item Name: </strong> {{list.name}}
+       <br>
+       <strong> Category: </strong> {{list.category}}
+       <br>
+        <strong> Item Description: </strong> {{list.description}}
+       <br>
+       <strong> Price Per Day: </strong> ${{list.price}}
+       <br>
+       <strong> Rental Period: </strong> {{list.days}} days
+       <br>
+       <strong> {{ list.rentable  ?  "Available Now"  : "Not Available" }}  </strong>
+       <button class="btn-success" ng-click="rent(list)">Rent</button>
+     </div>
+
+     </div>
+
+   </div>
+ </div>
+</div>

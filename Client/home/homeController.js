@@ -145,6 +145,12 @@ angular.module('app', ['auth0', 'angular-storage', 'angular-jwt', 'ngRoute', 'ap
     $window.location.href ='https://dilp.auth0.com/v2/logout?returnTo=' + $scope.env[0];
    }
 
+   //EMAIL FUNCTION -> TO DO: OPEN USER'S DEFAULT EMAIL CLIENT
+   // $scope.email = function(item) {
+   //  $window.location.href = "mailto:?subject=Subject&body=message%20goes%20here";
+   //  console.log("emailing: ", item.email);
+   // }
+
    $scope.generalListings = function() {
       $http({
        method:'GET',
