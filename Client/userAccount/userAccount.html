@@ -1,10 +1,10 @@
-<!-- BEGIN NAV -->
+ <!-- BEGIN NAV -->
 <nav class="navbar navbar-inverse nav-fixed-top">
  <div>
   <img src="../images/goods.jpg" class="img-responsive banner">
   </div>
  <div class="container">
-   <a class="navbar-brand" href='#/'> AirList </a>
+   <a class="navbar-brand" href='#/home'> AirList </a>
    <div class="navbar-form">
      <select ng-model="selectedOption" ng-init="selectedOption = options[0].category" class="form-control">
        <option ng-repeat="x in options" value="{{x.category}}">{{x.category}}</option>
@@ -13,8 +13,8 @@
      <input type="text" ng-model="searchBox" placeholder="Search items to rent" class="form-control">
      <button type="button" class="btn btn-primary" ng-click="showme=true; search(selectedOption)">Search</button>
      <button type="button" class="btn btn-primary pull-right" ng-click="logout()">Log Out</button>
-     <button type="button" class="btn btn-primary pull-right" ng-click="showme=false; yourListings()">Your Listings</button>
-     <button type="button" class="btn btn-primary pull-right" ng-click="viewAllListings()">All Listings</button>
+     <a href="#/userAccount" class="btn btn-primary pull-right" ng-click="showme=false; yourListings()">Your Account</a>
+     <a href="#/home"class="btn btn-primary pull-right">All Listings</a>
    </div>
  </div>
 </nav>
@@ -23,11 +23,12 @@
 <!-- BEGIN ITEM ADD SECTION -->
 <div class="container">
  <div class="row">
+  <div class="col-md-6">
    <h3> List an Item </h3>
    <form class="form-horizontal">
 <!-- BEGIN CATEGORY SELECT -->
      <div class="form-group">
-      <div class="col-sm-5 col-sm-offset-4-right">
+      <div style="width:100%">
         <select ng-model="list.category" class="form-control listingClass" ng-init="list.category = addCategory[0].category" >
         <option ng-repeat="y in addCategory" value="{{y.category}}">
          {{y.category}}
@@ -38,48 +39,57 @@
 <!-- END OF CATEGORY SELECT -->
 <!-- BEGIN ITEM NAME FORM -->
      <div class="form-group">
-      <div class="col-sm-5 col-sm-offset-4-right">
+      <div style="width:80%">
         <input type="text" ng-model="list.name" placeholder="Item Name" class="form-control"></input>
       </div>
      </div>
 <!-- END OF ITEM NAME FORM -->
 <!-- BEGIN ITEM DESCRIPTION FORM -->
      <div class="form-group">
-      <div class="col-sm-5 col-sm-offset-4-right">
+      <div style="width:80%">
          <textarea type="text" ng-model="list.description"  placeholder="Description" class="description form-control"></textarea>
       </div>
      </div>
 <!-- END OF ITEM DESCRIPTION FORM -->
 <!-- BEGIN ITEM PRICE FORM -->
      <div class="form-group">
-      <div class="col-sm-5 col-sm-offset-4-right">
+      <div style="width:80%">
         <input ng-model="list.price" placeholder="Price" class="form-control"></input>
       </div>
      </div>
 <!-- END OF ITEM PRICE FORM -->
 <!-- BEGIN ITEM DAYS FORM -->
      <div class="form-group">
-      <div class="col-sm-5 col-sm-offset-4-right">
+      <div style="width:80%">
         <input ng-model="list.days" placeholder="Number of Days" class="form-control"></input>
       </div>
      </div>
-     <span ng-model="list.rentable" ng-init="list.rentabl=true">
+     <span ng-model="list.rentable" ng-init="list.rentable=true">
 <!-- END OF ITEM DAYS FORM -->
 <!-- BEGIN SUBMIT BUTTON FORM-->
      <div class="form-group">
-      <div class="col-sm-5 col-sm-offset-4-right">
+      <div style="width:80%">
         <button ng-click="addItem(list)"  type="button" class="btn btn-primary">Add</button>
       </div>
      </div>
-<!-- END OF SUBMIT BUTTON FORM-->
+<!-- END OF SUBMIT BUTTOwN FORM-->
    </form>
+  </div>
+
+  <div class="col-md-6">
+   <h3>Profile</h3>
+   <img src="../landingPage/img/profile.png">
+   <!-- <h4>Name: {{name}}</h4>
+   <h4>Email: {{email}}</h4> -->
+  </div>
+
  </div>
 </div>
 <!-- END ITEM ADD SECTION -->
 <hr>
 <!-- USER'S ITEMS FOR RENT -->
 <!-- display all items user posted, sorted by the time when user posted the item-->
-<div class="container" ng-init="yourListings()" ng-hide="showme">
+<div class="container" ng-hide="showme">
  <div class="row" ng-hide="showme">
    <div class="col-sm-6">
      <h3> Your Listings: </h3>
@@ -167,4 +177,4 @@
 
    </div>
   </div><!-- END OF ROW-->
-</div><!-- END OF CONTAINER-->
+</div><!-- END OF CONTAINER

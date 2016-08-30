@@ -7,7 +7,7 @@ var itemController = require('./item/itemController.js');
 var app = express();
 
 //for heroku
-var port = process.env.PORT || 9000;
+var port = process.env.PORT || 1337;
 var mongoUri = process.env.MONGODB_URI || 'mongodb://localhost/airlistdb';
 mongoose.connect(mongoUri);
 

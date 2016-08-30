@@ -5,7 +5,7 @@
   <img src="../images/goods.jpg" class="img-responsive banner">
   </div>
    <div class="container ">
-     <a class="navbar-brand" href='#/'> AirList </a>
+     <a class="navbar-brand" href='#/home'> AirList </a>
      <div class="navbar-form ">
        <select ng-model="selectedOption" ng-init="selectedOption = options[0].category" class="form-control">
          <option ng-repeat="x in options" value="{{x.category}}">
@@ -16,9 +16,9 @@
        <input type="text" ng-model="searchBox" placeholder="Search items to rent" class="form-control">
        <button type="button" class="btn btn-primary" ng-click="showme=true; search(selectedOption)">Search</button>
        <button type="button" class="btn btn-primary pull-right" ng-click="logout()">Log Out</button>
-       <button type="button" class="btn btn-primary pull-right" ng-click="goToUserAcc()">Your Account</button>
-       <button type="button" class="btn btn-primary pull-right" ng-click="showme=false">All Listings</button>
-     </div>
+       <a href ="#/userAccount" class="btn btn-primary pull-right" ng-click="yourListings()">Your Account </a>
+       <a href="#/home" class="btn btn-primary pull-right" ng-click="showme=false">All Listings</a>
+    </div>
    </div>
 </nav>
 <!-- End NAV -->
@@ -28,7 +28,7 @@
 <!-- display all items in search results and filter by searchbox query  -->
 <!-- can rent an item which will add user email to object as renter property
 can send email to user by accessing email property of object -->
-<div class="container" ng-show="showme" ng-init="login()">
+<div class="container" ng-show="showme">
  <div class="row" ng-show="showme">
    <h2> Search Results: </h2>
    <br>

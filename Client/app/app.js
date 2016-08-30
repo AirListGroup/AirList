@@ -1,67 +1,56 @@
-angular.module('app', ['auth0', 'angular-storage', 'angular-jwt', 'ngRoute', 'app.userAccountController', 'app.loginController', 'app.homeController'])
+(function() {
+  'use strict';
 
-   .config(function myAppConfig ($routeProvider, authProvider){
+  angular
+    .module('app', ['auth0', 'angular-storage', 'angular-jwt', 'ngRoute', 'userAccount', 'login', 'home', 'services', 'main'])
+    .config(myAppConfig);
+
+  myAppConfig.$inject = ['$routeProvider', 'authProvider'];
+
+  function myAppConfig($routeProvider, authProvider) {
     authProvider.init({
-      domain: 'dilp.auth0.com',
-      clientID: 'khcIzPKbh7xrfincGzpmj3qspWqAEgWb',
+      domain: 'jeffreylamwork.auth0.com',
+      clientID: '7a1aqBcXrXZ7VUCJibImgkDLQF105C2I',
       loginUrl: '/login'
     });
 
-    $routeProvider
-    .when( '/', {
-      controller: 'loginController',
-      templateUrl: 'home/home.html',
-      requiresLogin: false
-    })
-    .when( '/userAccount', {
-      controller: 'loginController',
-      templateUrl: 'userAccount/userAccount.html',
-      requiresLogin: true
-    })
 
-    //Called when login is successful
+    $routeProvider
+      .when('/', {
+        controller: 'loginController',
+        templateUrl: 'landingPage/index.html',
+        requiresLogin: false
+      })
+      .when('/home', {
+        controller: 'homeController',
+        templateUrl: 'home/home.html',
+        requiresLogin: false
+      })
+      .when('/userAccount', {
+        controller: 'userAccountController',
+        templateUrl: 'userAccount/userAccount.html',
+        requiresLogin: true
+      })
+
     authProvider.on('loginSuccess', ['$location', 'profilePromise', 'idToken', 'store', function($location, profilePromise, idToken, store) {
       // Successfully log in
       // Access to user profile and token
-      profilePromise.then(function(profile){
+      profilePromise.then(function(profile) {
         // profile
-            store.set('profile', profile);
-            store.set('token', idToken);
-            email = profile.email;
+        store.set('profile', profile);
+        store.set('token', idToken);
+        email = profile.email;
 
       });
-      $location.url('/userAccount');
+      $location.url('/home');
     }]);
 
     //Called when login fails
     authProvider.on('loginFailure', function($location) {
       // If anything goes wrong
-        console.log("Login Failure foo!")
-        $location.url('#/');
+      console.log("Login Failure foo!")
+      $location.url('#/');
     });
+  }
 
- }) //end of config
-
-.run(['$rootScope', 'auth', 'store', 'jwtHelper', '$location', function($rootScope, auth, store, jwtHelper, $location) {
-  // Listen to a location change event
-  $rootScope.$on('$locationChangeStart', function() {
-    // Grab the user's token
-    var token = store.get('token');
-    // Check if token was actually stored
-    if (token) {
-      // Check if token is yet to expire
-      if (!jwtHelper.isTokenExpired(token)) {
-        // Check if the user is not authenticated
-        if (!auth.isAuthenticated) {
-          // Re-authenticate with the user's profile
-          // Calls authProvider.on('authenticated')
-          auth.authenticate(store.get('profile'), token);
-        }
-      } else {
-        // Use the refresh token to get a new idToken
-        auth.refreshIdToken(token);
-      }
-    }
-
-  });
-}]);
+})();
