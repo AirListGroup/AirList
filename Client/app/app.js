@@ -39,8 +39,6 @@
         // profile
         store.set('profile', profile);
         store.set('token', idToken);
-        email = profile.email;
-
       });
       $location.url('/home');
     }]);
