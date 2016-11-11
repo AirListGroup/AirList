@@ -11,7 +11,7 @@
     authProvider.init({
       domain: 'jeffreylamwork.auth0.com',
       clientID: '7a1aqBcXrXZ7VUCJibImgkDLQF105C2I',
-      loginUrl: '/login'
+      loginUrl: '/home'
     });
 
 

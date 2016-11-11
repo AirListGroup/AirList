@@ -12,7 +12,7 @@
 
     function login() {
       if (!window.localStorage.profile) {
-        auth.signin();
+        auth.signin({}, function(){});
       }
     }
 
