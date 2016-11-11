@@ -4,10 +4,10 @@
     <script>
       // Need to comment out this script tag in order to run locally
       // Geolocation only works on HTTPS, see link for details:
-      // https://developers.google.com/web/fundamentals/native-hardware/user-location/obtain-location?hl=en
-     // if (location.origin.indexOf('https') !== 0) {
-      //  location.href = 'https://' + location.host;
-      //}
+      //https://developers.google.com/web/fundamentals/native-hardware/user-location/obtain-location?hl=en
+     if (location.origin.indexOf('https') !== 0) {
+       location.href = 'https://' + location.host;
+      }
     </script>
 
     <!-- Theme CSS -->
